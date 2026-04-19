@@ -1,0 +1,66 @@
+[
+  {
+    "product_id": "P001",
+    "name": "ProBook Laptop",
+    "category": "electronics",
+    "return_window_days": 30,
+    "warranty_months": 24,
+    "price": 899.99
+  },
+  {
+    "product_id": "P002",
+    "name": "UltraPhone",
+    "category": "electronics",
+    "return_window_days": 15,
+    "warranty_months": 12,
+    "price": 699.99
+  },
+  {
+    "product_id": "P003",
+    "name": "SmartWatch Pro",
+    "category": "electronics",
+    "return_window_days": 30,
+    "warranty_months": 12,
+    "price": 299.99
+  },
+  {
+    "product_id": "P004",
+    "name": "Wireless Headphones",
+    "category": "electronics",
+    "return_window_days": 60,
+    "warranty_months": 6,
+    "price": 149.99
+  },
+  {
+    "product_id": "P005",
+    "name": "Gaming Console",
+    "category": "electronics",
+    "return_window_days": 30,
+    "warranty_months": 12,
+    "price": 499.99
+  },
+  {
+    "product_id": "P006",
+    "name": "Tablet Air",
+    "category": "electronics",
+    "return_window_days": 30,
+    "warranty_months": 24,
+    "price": 549.99
+  },
+  {
+    "product_id": "P007",
+    "name": "Fitness Tracker",
+    "category": "electronics",
+    "return_window_days": 60,
+    "warranty_months": 6,
+    "price": 89.99
+  },
+  {
+    "product_id": "P008",
+    "name": "Bluetooth Speaker",
+    "category": "electronics",
+    "return_window_days": 60,
+    "warranty_months": 0,
+    "price": 79.99
+  }
+]

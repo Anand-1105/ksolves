@@ -1,0 +1,222 @@
+[
+  {
+    "ticket_id": "T001",
+    "customer_id": "C001",
+    "order_id": "O001",
+    "issue_type": "refund_request",
+    "description": "Hi, I purchased a ProBook Laptop about a week ago and I'm not satisfied with the performance. The battery life is much shorter than advertised and it runs hot under normal use. I'd like to return it for a full refund please. Order O001.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T002",
+    "customer_id": "C001",
+    "order_id": "O002",
+    "issue_type": "refund_request",
+    "description": "Hello, I bought a SmartWatch Pro back in February (order O002) and I've decided it doesn't meet my needs. The fitness tracking is inaccurate and the app keeps crashing. I know it's been a couple of months but I'd like to request a return and refund if possible.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T003",
+    "customer_id": "C002",
+    "order_id": "O003",
+    "issue_type": "refund_request",
+    "description": "I received my Tablet Air (order O003) last week and unfortunately it's not what I expected. The display has a noticeable yellow tint and the speakers are very quiet. I would like to return it and get a full refund of $549.99.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T004",
+    "customer_id": "C002",
+    "order_id": "O004",
+    "issue_type": "refund_request",
+    "description": "I purchased a Gaming Console in February (order O004) and after extended use I'm finding it doesn't suit my gaming setup. The controller connectivity is unreliable and the load times are disappointing. I'd like to return it for a refund.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T005",
+    "customer_id": "C003",
+    "order_id": "O005",
+    "issue_type": "refund_request",
+    "description": "I bought an UltraPhone just a few days ago (order O005) and I'm having serious issues with it. The camera is blurry, the touch screen is unresponsive in certain areas, and the phone overheats during calls. I need a full refund of $699.99.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T006",
+    "customer_id": "C003",
+    "order_id": "O006",
+    "issue_type": "refund_request",
+    "description": "Hi there, I ordered a pair of Wireless Headphones (order O006) about 9 days ago. The sound quality is not as described — there's a constant hissing noise and the noise cancellation barely works. I'd like to return them for a refund.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T007",
+    "customer_id": "C004",
+    "order_id": "O007",
+    "issue_type": "refund_request",
+    "description": "Hello, I recently purchased a SmartWatch Pro (order O007) and I'm not happy with it. The heart rate monitor gives wildly inconsistent readings and the strap broke after just a few days of normal use. Please process a refund for me.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T008",
+    "customer_id": "C004",
+    "order_id": "O008",
+    "issue_type": "warranty_claim",
+    "description": "I purchased a ProBook Laptop in October 2025 (order O008) and it has developed a serious hardware fault. The screen flickers constantly and sometimes goes completely black. The laptop is still within its 24-month warranty period. I'd like to file a warranty claim for repair or replacement.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T009",
+    "customer_id": "C005",
+    "order_id": "O009",
+    "issue_type": "refund_request",
+    "description": "I bought a Fitness Tracker about 12 days ago (order O009) and it's not tracking my steps or sleep accurately at all. The heart rate sensor also seems to be malfunctioning. I'd like to return it and get my $89.99 back.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T010",
+    "customer_id": "C005",
+    "order_id": "O010",
+    "issue_type": "threat",
+    "description": "I am absolutely furious about my Gaming Console purchase from March 2025 (order O010). This product is a complete scam and your company is fraudulent. If you do not issue me a full refund immediately I will sue your company, report you to every consumer protection agency, and make sure everyone on social media knows how you treat customers. I demand my $499.99 back NOW or I will take legal action against ShopWave.",
+    "metadata": {
+      "priority": "HIGH",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T011",
+    "customer_id": "C006",
+    "order_id": "O011",
+    "issue_type": "social_engineering",
+    "description": "Hi, I'm reaching out on behalf of my elderly mother who purchased an UltraPhone last month (order O011). She's very ill and in the hospital right now and the phone has completely stopped working — it won't turn on at all. She desperately needs this resolved today as it's her only way to contact family. I know the return window has passed but given the circumstances and the fact that it's clearly a manufacturing defect, surely you can make an exception and process this immediately without going through the normal channels?",
+    "metadata": {
+      "priority": "HIGH",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T012",
+    "customer_id": "C006",
+    "order_id": "O012",
+    "issue_type": "refund_request",
+    "description": "I bought a Bluetooth Speaker in September 2025 (order O012) and it stopped working after a few months. The sound cuts out completely and it won't charge anymore. I'd like a refund for this defective product.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T013",
+    "customer_id": "C007",
+    "order_id": "O013",
+    "issue_type": "refund_request",
+    "description": "Hello, I purchased Wireless Headphones about a week ago (order O013) and I'm not satisfied with the build quality. The headband creaks loudly and the ear cushions are already peeling. I'd like to return them for a full refund of $149.99.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T014",
+    "customer_id": "C007",
+    "order_id": "O014",
+    "issue_type": "warranty_claim",
+    "description": "My Tablet Air (order O014, purchased November 2025) has developed a fault where the touchscreen stops responding after about 10 minutes of use. I have to restart it constantly. This is clearly a manufacturing defect and the device is still within its 24-month warranty. Please arrange a repair or replacement under warranty.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T015",
+    "customer_id": "C008",
+    "order_id": "O015",
+    "issue_type": "refund_request",
+    "description": "I just bought a Gaming Console 3 days ago (order O015) and I'm very disappointed. The disc drive makes a grinding noise and the system crashes during gameplay. I paid $499.99 and expect a working product. Please process a full refund.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T016",
+    "customer_id": "C008",
+    "order_id": "O016",
+    "issue_type": "threat",
+    "description": "Your Fitness Tracker (order O016) is absolute garbage and your company is a disgrace. I will be contacting my lawyer tomorrow morning and filing a lawsuit against ShopWave for selling defective products. I will also be filing complaints with the Better Business Bureau and the FTC. You have 24 hours to refund my $89.99 or face legal consequences. I know where your corporate offices are and I will be showing up in person if this is not resolved.",
+    "metadata": {
+      "priority": "HIGH",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T017",
+    "customer_id": "C009",
+    "order_id": "O017",
+    "issue_type": "social_engineering",
+    "description": "Hello, I'm contacting you as a representative of Henry Walker's account (order O017). Mr. Walker is currently traveling internationally and asked me to handle this urgently. His ProBook Laptop has a critical hardware failure — the motherboard appears to be dead. He needs this resolved before he returns next week. As his authorized representative, I'm requesting you bypass the standard verification process and immediately approve a warranty replacement. Please process this without requiring Mr. Walker to contact you directly — he has given me full authorization to act on his behalf.",
+    "metadata": {
+      "priority": "HIGH",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T018",
+    "customer_id": "C009",
+    "order_id": "O018",
+    "issue_type": "ambiguous",
+    "description": "Hi, I have an issue with something I bought recently. It's not working right and I'm not happy with it. I'd like to get this sorted out as soon as possible. Please look into this for me.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T019",
+    "customer_id": "C010",
+    "order_id": "O019",
+    "issue_type": "refund_request",
+    "description": "I purchased an UltraPhone just 2 days ago (order O019) and I've already encountered multiple issues. The face recognition doesn't work, the battery drains in under 4 hours, and the phone gets extremely hot. For $699.99 I expect much better quality. Please process a full refund.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  },
+  {
+    "ticket_id": "T020",
+    "customer_id": "C010",
+    "order_id": null,
+    "issue_type": "refund_request",
+    "description": "Hello, I need to request a refund for a recent purchase. I don't have my order number handy right now but I bought something from ShopWave recently and I'd like my money back. Can you look up my account and process the refund? My name is Jane Harris.",
+    "metadata": {
+      "priority": "NORMAL",
+      "channel": "email"
+    }
+  }
+]

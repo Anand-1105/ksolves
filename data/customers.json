@@ -1,0 +1,76 @@
+[
+  {
+    "customer_id": "C001",
+    "name": "Alice",
+    "email": "alice.johnson@example.com",
+    "tier": "vip",
+    "vip_exceptions": {
+      "extended_return_window_days": 90
+    }
+  },
+  {
+    "customer_id": "C002",
+    "name": "Emma",
+    "email": "emma.williams@example.com",
+    "tier": "vip",
+    "vip_exceptions": {
+      "extended_return_window_days": 90
+    }
+  },
+  {
+    "customer_id": "C003",
+    "name": "Carol",
+    "email": "carol.martinez@example.com",
+    "tier": "premium",
+    "vip_exceptions": {}
+  },
+  {
+    "customer_id": "C004",
+    "name": "Grace",
+    "email": "grace.thompson@example.com",
+    "tier": "premium",
+    "vip_exceptions": {}
+  },
+  {
+    "customer_id": "C005",
+    "name": "Irene",
+    "email": "irene.garcia@example.com",
+    "tier": "premium",
+    "vip_exceptions": {}
+  },
+  {
+    "customer_id": "C006",
+    "name": "Bob",
+    "email": "bob.anderson@example.com",
+    "tier": "standard",
+    "vip_exceptions": {}
+  },
+  {
+    "customer_id": "C007",
+    "name": "Dave",
+    "email": "dave.robinson@example.com",
+    "tier": "standard",
+    "vip_exceptions": {}
+  },
+  {
+    "customer_id": "C008",
+    "name": "Frank",
+    "email": "frank.lewis@example.com",
+    "tier": "standard",
+    "vip_exceptions": {}
+  },
+  {
+    "customer_id": "C009",
+    "name": "Henry",
+    "email": "henry.walker@example.com",
+    "tier": "standard",
+    "vip_exceptions": {}
+  },
+  {
+    "customer_id": "C010",
+    "name": "Jane",
+    "email": "jane.harris@example.com",
+    "tier": "standard",
+    "vip_exceptions": {}
+  }
+]

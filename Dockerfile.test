@@ -1,0 +1,27 @@
+# Test image — includes test dependencies and the full test suite
+FROM python:3.13-slim AS test
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir pytest-cov
+
+# Copy full source including tests
+COPY agent/       ./agent/
+COPY utils/       ./utils/
+COPY data/        ./data/
+COPY tests/       ./tests/
+COPY main.py      .
+COPY conftest.py  .
+COPY pyproject.toml .
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    TOOL_FAILURE_RATE=0
+
+CMD ["python", "-m", "pytest", "tests/", "-q", "--tb=short"]

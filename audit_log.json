@@ -1,0 +1,2607 @@
+{
+  "execution_metadata": {
+    "run_id": "run_2026-04-18T13:39:54.205511Z",
+    "timestamp": "2026-04-18T13:39:54.205548Z",
+    "total_tickets": 20,
+    "tickets_processed": 20,
+    "tickets_resolved": 10,
+    "tickets_escalated": 10,
+    "tickets_errored": 0,
+    "execution_time_ms": 22094.02
+  },
+  "ticket_audit": [
+    {
+      "ticket_id": "T001",
+      "customer_id": "C001",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "alice.johnson@example.com"
+          },
+          "output": {
+            "customer_id": "C001",
+            "name": "Alice",
+            "email": "alice.johnson@example.com",
+            "tier": "vip",
+            "vip_exceptions": {
+              "extended_return_window_days": 90
+            }
+          },
+          "timestamp": "2026-04-19T14:43:23.524749+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O001"
+          },
+          "output": {
+            "order_id": "O001",
+            "customer_id": "C001",
+            "product_id": "P001",
+            "purchase_date": "2026-04-05",
+            "amount": 899.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P001",
+                "quantity": 1,
+                "unit_price": 899.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.524766+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P001"
+          },
+          "output": {
+            "product_id": "P001",
+            "name": "ProBook Laptop",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 24,
+            "price": 899.99
+          },
+          "timestamp": "2026-04-19T14:43:23.524778+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request Hi, I purchased a ProBook Laptop about a week ago and I'm not satisfied with the"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.524858+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O001"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 90-day return window (14 days since purchase).",
+            "return_window_days": 90,
+            "days_since_purchase": 14
+          },
+          "timestamp": "2026-04-19T14:43:24.353704+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O001",
+            "amount": 899.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O001",
+            "order_id": "O001",
+            "amount": 899.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:24.353732+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:24.353762+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T001",
+            "message": "Hello Alice,\n\nGreat news! Your refund of $899.99 for order O001 has been approved (Refund ID: REF-20"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T001",
+            "timestamp": "2026-04-19T14:43:24.355510+00:00",
+            "message_preview": "Hello Alice,\n\nGreat news! Your refund of $899.99 for order O001 has been approved (Refund ID: REF-2026-04-19-O001).\n\nYou should see the funds in your "
+          },
+          "timestamp": "2026-04-19T14:43:24.355539+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9850000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.99.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T001",
+          "proposed_action": "APPROVE",
+          "amount_or_category": 899.99,
+          "reasoning_summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.99.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.594076+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O001",
+      "refund_amount": 899.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T002",
+      "customer_id": "C001",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "alice.johnson@example.com"
+          },
+          "output": {
+            "customer_id": "C001",
+            "name": "Alice",
+            "email": "alice.johnson@example.com",
+            "tier": "vip",
+            "vip_exceptions": {
+              "extended_return_window_days": 90
+            }
+          },
+          "timestamp": "2026-04-19T14:43:23.524989+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O002"
+          },
+          "output": {
+            "order_id": "O002",
+            "customer_id": "C001",
+            "product_id": "P003",
+            "purchase_date": "2026-02-10",
+            "amount": 299.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P003",
+                "quantity": 1,
+                "unit_price": 299.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.524999+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P003"
+          },
+          "output": {
+            "product_id": "P003",
+            "name": "SmartWatch Pro",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 12,
+            "price": 299.99
+          },
+          "timestamp": "2026-04-19T14:43:23.525009+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request Hello, I bought a SmartWatch Pro back in February (order O002) and I've decided"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.525075+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O002"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 90-day return window (68 days since purchase).",
+            "return_window_days": 90,
+            "days_since_purchase": 68
+          },
+          "timestamp": "2026-04-19T14:43:24.213846+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O002",
+            "amount": 299.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O002",
+            "order_id": "O002",
+            "amount": 299.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:24.213878+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:24.213901+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T002",
+            "message": "Hello Alice,\n\nGreat news! Your refund of $299.99 for order O002 has been approved (Refund ID: REF-20"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T002",
+            "timestamp": "2026-04-19T14:43:24.238120+00:00",
+            "message_preview": "Hello Alice,\n\nGreat news! Your refund of $299.99 for order O002 has been approved (Refund ID: REF-2026-04-19-O002).\n\nYou should see the funds in your "
+          },
+          "timestamp": "2026-04-19T14:43:24.238157+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9550000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Confidence score: 0.96.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T002",
+          "proposed_action": "APPROVE",
+          "amount_or_category": 299.99,
+          "reasoning_summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Confidence score: 0.96.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.594103+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O002",
+      "refund_amount": 299.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T003",
+      "customer_id": "C002",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "emma.williams@example.com"
+          },
+          "output": {
+            "customer_id": "C002",
+            "name": "Emma",
+            "email": "emma.williams@example.com",
+            "tier": "vip",
+            "vip_exceptions": {
+              "extended_return_window_days": 90
+            }
+          },
+          "timestamp": "2026-04-19T14:43:23.532751+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O003"
+          },
+          "output": {
+            "order_id": "O003",
+            "customer_id": "C002",
+            "product_id": "P006",
+            "purchase_date": "2026-04-01",
+            "amount": 549.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P006",
+                "quantity": 1,
+                "unit_price": 549.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532761+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P006"
+          },
+          "output": {
+            "product_id": "P006",
+            "name": "Tablet Air",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 24,
+            "price": 549.99
+          },
+          "timestamp": "2026-04-19T14:43:23.532771+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request I received my Tablet Air (order O003) last week and unfortunately it's not what"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532835+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O003"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 90-day return window (18 days since purchase).",
+            "return_window_days": 90,
+            "days_since_purchase": 18
+          },
+          "timestamp": "2026-04-19T14:43:25.086066+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O003",
+            "amount": 549.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O003",
+            "order_id": "O003",
+            "amount": 549.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:25.086076+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:25.086087+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T003",
+            "message": "Hello Emma,\n\nGreat news! Your refund of $549.99 for order O003 has been approved (Refund ID: REF-202"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T003",
+            "timestamp": "2026-04-19T14:43:25.087118+00:00",
+            "message_preview": "Hello Emma,\n\nGreat news! Your refund of $549.99 for order O003 has been approved (Refund ID: REF-2026-04-19-O003).\n\nYou should see the funds in your a"
+          },
+          "timestamp": "2026-04-19T14:43:25.087142+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9850000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.99.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T003",
+          "proposed_action": "APPROVE",
+          "amount_or_category": 549.99,
+          "reasoning_summary": "The customer's calm sentiment and adherence to the 30-day return policy outweigh the potential risk of product damage during return shipping, and the customer's detailed description supports a fair and swift resolution.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:25.084827+00:00",
+          "debate_transcript": [
+            {
+              "role": "advocate",
+              "argument": "Based on the provided information, I recommend APPROVING the refund request for Emma as the issue type is clear (refund_request) and the return window (30 days) has not expired since the purchase date was 2026-04-01. Additionally, the customer's sentiment is calm, indicating a low churn risk, and all required data has been successfully retrieved, supporting a swift and fair resolution."
+            },
+            {
+              "role": "skeptic",
+              "argument": "I would like to argue against APPROVE as there is a risk of potential damage to the product during return shipping, which may not be covered under the 30-day return policy. By approving the refund without verifying the product's condition, we may be inadvertently incentivizing customers to return damaged items, potentially leading to unnecessary costs and logistical issues."
+            },
+            {
+              "role": "judge",
+              "argument": "The customer's calm sentiment and adherence to the 30-day return policy outweigh the potential risk of product damage during return shipping, and the customer's detailed description supports a fair and swift resolution."
+            }
+          ]
+        }
+      ],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O003",
+      "refund_amount": 549.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T004",
+      "customer_id": "C002",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "emma.williams@example.com"
+          },
+          "output": {
+            "customer_id": "C002",
+            "name": "Emma",
+            "email": "emma.williams@example.com",
+            "tier": "vip",
+            "vip_exceptions": {
+              "extended_return_window_days": 90
+            }
+          },
+          "timestamp": "2026-04-19T14:43:23.532955+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O004"
+          },
+          "output": {
+            "order_id": "O004",
+            "customer_id": "C002",
+            "product_id": "P005",
+            "purchase_date": "2026-02-15",
+            "amount": 499.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P005",
+                "quantity": 1,
+                "unit_price": 499.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532964+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P005"
+          },
+          "output": {
+            "product_id": "P005",
+            "name": "Gaming Console",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 12,
+            "price": 499.99
+          },
+          "timestamp": "2026-04-19T14:43:23.532974+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request I purchased a Gaming Console in February (order O004) and after extended use I'm"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.533038+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O004"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 90-day return window (63 days since purchase).",
+            "return_window_days": 90,
+            "days_since_purchase": 63
+          },
+          "timestamp": "2026-04-19T14:43:24.223937+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O004",
+            "amount": 499.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O004",
+            "order_id": "O004",
+            "amount": 499.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:24.223943+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:24.223951+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T004",
+            "message": "Hello Emma,\n\nGreat news! Your refund of $499.99 for order O004 has been approved (Refund ID: REF-202"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T004",
+            "timestamp": "2026-04-19T14:43:24.246566+00:00",
+            "message_preview": "Hello Emma,\n\nGreat news! Your refund of $499.99 for order O004 has been approved (Refund ID: REF-2026-04-19-O004).\n\nYou should see the funds in your a"
+          },
+          "timestamp": "2026-04-19T14:43:24.246579+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9550000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: frustrated (churn risk: low). Confidence score: 0.96.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T004",
+          "proposed_action": "APPROVE",
+          "amount_or_category": 499.99,
+          "reasoning_summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: frustrated (churn risk: low). Confidence score: 0.96.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601716+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O004",
+      "refund_amount": 499.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T005",
+      "customer_id": "C003",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "carol.martinez@example.com"
+          },
+          "output": {
+            "customer_id": "C003",
+            "name": "Carol",
+            "email": "carol.martinez@example.com",
+            "tier": "premium",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532102+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O005"
+          },
+          "output": {
+            "order_id": "O005",
+            "customer_id": "C003",
+            "product_id": "P002",
+            "purchase_date": "2026-04-10",
+            "amount": 699.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P002",
+                "quantity": 1,
+                "unit_price": 699.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532121+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P002"
+          },
+          "output": {
+            "product_id": "P002",
+            "name": "UltraPhone",
+            "category": "electronics",
+            "return_window_days": 15,
+            "warranty_months": 12,
+            "price": 699.99
+          },
+          "timestamp": "2026-04-19T14:43:23.532134+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request I bought an UltraPhone just a few days ago (order O005) and I'm having serious i"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532234+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T005",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. ",
+            "priority": "urgent"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T005",
+            "ticket_id": "T005",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Confidence score: 0.91.",
+            "priority": "urgent",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.223900+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.223911+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T005",
+            "message": "Hello Carol,\n\nThank you for reaching out. Your case regarding order O005 has been escalated to our s"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T005",
+            "timestamp": "2026-04-19T14:43:24.238303+00:00",
+            "message_preview": "Hello Carol,\n\nThank you for reaching out. Your case regarding order O005 has been escalated to our specialist team for review (threat detected).\n\nWe w"
+          },
+          "timestamp": "2026-04-19T14:43:24.238313+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.91,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Confidence score: 0.91.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T005",
+          "proposed_action": "ESCALATE",
+          "amount_or_category": "threat_detected",
+          "reasoning_summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Confidence score: 0.91.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601706+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "ESCALATE",
+      "escalation_category": "threat_detected",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T005",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T006",
+      "customer_id": "C003",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "carol.martinez@example.com"
+          },
+          "output": {
+            "customer_id": "C003",
+            "name": "Carol",
+            "email": "carol.martinez@example.com",
+            "tier": "premium",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.539150+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O006"
+          },
+          "output": {
+            "order_id": "O006",
+            "customer_id": "C003",
+            "product_id": "P004",
+            "purchase_date": "2026-04-08",
+            "amount": 149.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P004",
+                "quantity": 1,
+                "unit_price": 149.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.539160+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P004"
+          },
+          "output": {
+            "product_id": "P004",
+            "name": "Wireless Headphones",
+            "category": "electronics",
+            "return_window_days": 60,
+            "warranty_months": 6,
+            "price": 149.99
+          },
+          "timestamp": "2026-04-19T14:43:23.539169+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request Hi there, I ordered a pair of Wireless Headphones (order O006) about 9 days ago."
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.539235+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O006"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 60-day return window (11 days since purchase).",
+            "return_window_days": 60,
+            "days_since_purchase": 11
+          },
+          "timestamp": "2026-04-19T14:43:24.212862+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O006",
+            "amount": 149.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O006",
+            "order_id": "O006",
+            "amount": 149.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:24.212870+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:24.212879+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T006",
+            "message": "Hello Carol,\n\nGreat news! Your refund of $149.99 for order O006 has been approved (Refund ID: REF-20"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T006",
+            "timestamp": "2026-04-19T14:43:24.230760+00:00",
+            "message_preview": "Hello Carol,\n\nGreat news! Your refund of $149.99 for order O006 has been approved (Refund ID: REF-2026-04-19-O006).\n\nYou should see the funds in your "
+          },
+          "timestamp": "2026-04-19T14:43:24.230806+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9550000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Confidence score: 0.96.",
+      "replan_attempts": [],
+      "checkpoint_events": [],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O006",
+      "refund_amount": 149.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T007",
+      "customer_id": "C004",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "grace.thompson@example.com"
+          },
+          "output": {
+            "customer_id": "C004",
+            "name": "Grace",
+            "email": "grace.thompson@example.com",
+            "tier": "premium",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:24.212730+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O007"
+          },
+          "output": {
+            "order_id": "O007",
+            "customer_id": "C004",
+            "product_id": "P003",
+            "purchase_date": "2026-04-12",
+            "amount": 299.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P003",
+                "quantity": 1,
+                "unit_price": 299.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:24.212741+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P003"
+          },
+          "output": {
+            "product_id": "P003",
+            "name": "SmartWatch Pro",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 12,
+            "price": 299.99
+          },
+          "timestamp": "2026-04-19T14:43:24.212751+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request Hello, I recently purchased a SmartWatch Pro (order O007) and I'm not happy with"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:24.212817+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O007"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 30-day return window (7 days since purchase).",
+            "return_window_days": 30,
+            "days_since_purchase": 7
+          },
+          "timestamp": "2026-04-19T14:43:24.266646+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O007",
+            "amount": 299.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O007",
+            "order_id": "O007",
+            "amount": 299.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:24.266655+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:24.266666+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T007",
+            "message": "Hello Grace,\n\nGreat news! Your refund of $299.99 for order O007 has been approved (Refund ID: REF-20"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T007",
+            "timestamp": "2026-04-19T14:43:24.268527+00:00",
+            "message_preview": "Hello Grace,\n\nGreat news! Your refund of $299.99 for order O007 has been approved (Refund ID: REF-2026-04-19-O007).\n\nYou should see the funds in your "
+          },
+          "timestamp": "2026-04-19T14:43:24.268551+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9850000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.99.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T007",
+          "proposed_action": "APPROVE",
+          "amount_or_category": 299.99,
+          "reasoning_summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.99.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:24.262687+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O007",
+      "refund_amount": 299.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T008",
+      "customer_id": "C004",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "grace.thompson@example.com"
+          },
+          "output": {
+            "customer_id": "C004",
+            "name": "Grace",
+            "email": "grace.thompson@example.com",
+            "tier": "premium",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532546+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O008"
+          },
+          "output": {
+            "order_id": "O008",
+            "customer_id": "C004",
+            "product_id": "P001",
+            "purchase_date": "2025-10-01",
+            "amount": 899.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P001",
+                "quantity": 1,
+                "unit_price": 899.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:24.212551+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P001"
+          },
+          "output": {
+            "product_id": "P001",
+            "name": "ProBook Laptop",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 24,
+            "price": 899.99
+          },
+          "timestamp": "2026-04-19T14:43:24.212569+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "warranty_claim I purchased a ProBook Laptop in October 2025 (order O008) and it has developed a"
+          },
+          "output": {
+            "result": "## 3. Warranty Policy\n\n### Coverage\n- Warranty covers **manufacturing defects only**.\n- Does not cover: physical damage caused by user, water damage, unauthorised modifications.\n\n### Warranty Periods by Category\n- Electronics (headphones, speakers, smart watches): 12 months from delivery date.\n- Home appliances (coffee makers, kitchen devices): 24 months from delivery date.\n- Electronics accessories: 6 months from delivery date.\n- Footwear and sports products: No warranty (covered only by return policy).\n\n### Warranty Claim Process\n- Customer must provide order ID and description of defect.\n- Agent should verify warranty period using order delivery date and product warranty duration.\n- Warranty claims are escalated to the warranty team \u2014 agents do not resolve warranty claims directly.\n- Resolution options: repair, replacement, or refund at ShopWave's discretion.\n\n---\n\n## 4. Order Cancellation Policy\n\n- Orders in **processing** status can be cancelled free of charge at any time before shipment.\n- Orders in **shipped** status cannot be cancelled \u2014 customer must wait for delivery and initiate a return.\n- Orders in **delivered** status cannot be cancelled.\n- Cancellations are confirmed via email within 1 hour.\n\n---\n\n## 5. Exchange Policy\n",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "warranty"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:24.212676+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T008",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. ",
+            "priority": "medium"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T008",
+            "ticket_id": "T008",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'warranty_claim' clearly applies. Confidence score: 0.91.",
+            "priority": "medium",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.262611+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.262642+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T008",
+            "message": "Hello Grace,\n\nThank you for reaching out. Your case regarding order O008 has been escalated to our s"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T008",
+            "timestamp": "2026-04-19T14:43:24.264967+00:00",
+            "message_preview": "Hello Grace,\n\nThank you for reaching out. Your case regarding order O008 has been escalated to our specialist team for review (warranty claim).\n\nWe wi"
+          },
+          "timestamp": "2026-04-19T14:43:24.264995+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.91,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'warranty_claim' clearly applies. Confidence score: 0.91.",
+      "replan_attempts": [],
+      "checkpoint_events": [],
+      "resolution": "ESCALATE",
+      "escalation_category": "warranty_claim",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T008",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T009",
+      "customer_id": "C005",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "irene.garcia@example.com"
+          },
+          "output": {
+            "customer_id": "C005",
+            "name": "Irene",
+            "email": "irene.garcia@example.com",
+            "tier": "premium",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532643+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O009"
+          },
+          "output": {
+            "order_id": "O009",
+            "customer_id": "C005",
+            "product_id": "P007",
+            "purchase_date": "2026-04-05",
+            "amount": 89.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P007",
+                "quantity": 1,
+                "unit_price": 89.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532653+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P007"
+          },
+          "output": {
+            "product_id": "P007",
+            "name": "Fitness Tracker",
+            "category": "electronics",
+            "return_window_days": 60,
+            "warranty_months": 6,
+            "price": 89.99
+          },
+          "timestamp": "2026-04-19T14:43:23.532663+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request I bought a Fitness Tracker about 12 days ago (order O009) and it's not tracking"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532729+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O009"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 60-day return window (14 days since purchase).",
+            "return_window_days": 60,
+            "days_since_purchase": 14
+          },
+          "timestamp": "2026-04-19T14:43:23.601643+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O009",
+            "amount": 89.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O009",
+            "order_id": "O009",
+            "amount": 89.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:23.601650+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:23.601660+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T009",
+            "message": "Hello Irene,\n\nGreat news! Your refund of $89.99 for order O009 has been approved (Refund ID: REF-202"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T009",
+            "timestamp": "2026-04-19T14:43:24.223875+00:00",
+            "message_preview": "Hello Irene,\n\nGreat news! Your refund of $89.99 for order O009 has been approved (Refund ID: REF-2026-04-19-O009).\n\nYou should see the funds in your a"
+          },
+          "timestamp": "2026-04-19T14:43:24.223886+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9550000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Confidence score: 0.96.",
+      "replan_attempts": [],
+      "checkpoint_events": [],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O009",
+      "refund_amount": 89.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T010",
+      "customer_id": "C005",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "irene.garcia@example.com"
+          },
+          "output": {
+            "customer_id": "C005",
+            "name": "Irene",
+            "email": "irene.garcia@example.com",
+            "tier": "premium",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.543150+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O010"
+          },
+          "output": {
+            "order_id": "O010",
+            "customer_id": "C005",
+            "product_id": "P005",
+            "purchase_date": "2025-03-01",
+            "amount": 499.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P005",
+                "quantity": 1,
+                "unit_price": 499.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.543168+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "threat I am absolutely furious about my Gaming Console purchase from March 2025 (order"
+          },
+          "output": {
+            "result": "# ShopWave Support Knowledge Base\n\n---\n\n## 1. Return Policy\n\n### Standard Return Window\n- Most products have a **30-day return window** from the date of delivery.\n- Items must be unused, in original condition, and in original packaging.\n- Proof of purchase (order ID) is required for all returns.\n\n### Category-Specific Return Windows\n- **Electronics accessories** (laptop stands, cables, mounts): 60-day return window.\n- **High-value electronics** (smart watches, tablets, laptops): 15-day return wi...",
+            "source": "shopwave_knowledge_base",
+            "note": "General policy overview \u2014 refine query for specific sections"
+          },
+          "timestamp": "2026-04-19T14:43:23.543196+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T010",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue ty",
+            "priority": "urgent"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T010",
+            "ticket_id": "T010",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Customer sentiment: angry (churn risk: medium). Confidence score: 0.79.",
+            "priority": "urgent",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.223848+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.223858+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T010",
+            "message": "Hello Irene,\n\nThank you for reaching out. Your case regarding order O010 has been escalated to our s"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T010",
+            "timestamp": "2026-04-19T14:43:24.238268+00:00",
+            "message_preview": "Hello Irene,\n\nThank you for reaching out. Your case regarding order O010 has been escalated to our specialist team for review (threat detected).\n\nWe w"
+          },
+          "timestamp": "2026-04-19T14:43:24.238278+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.79,
+      "confidence_factors": {
+        "data_completeness": 0.7,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Customer sentiment: angry (churn risk: medium). Confidence score: 0.79.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T010",
+          "proposed_action": "ESCALATE",
+          "amount_or_category": "threat_detected",
+          "reasoning_summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Customer sentiment: angry (churn risk: medium). Confidence score: 0.79.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601586+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "ESCALATE",
+      "escalation_category": "threat_detected",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T010",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T011",
+      "customer_id": "C006",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "bob.anderson@example.com"
+          },
+          "output": {
+            "customer_id": "C006",
+            "name": "Bob",
+            "email": "bob.anderson@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532588+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O011"
+          },
+          "output": {
+            "order_id": "O011",
+            "customer_id": "C006",
+            "product_id": "P002",
+            "purchase_date": "2026-03-20",
+            "amount": 699.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P002",
+                "quantity": 1,
+                "unit_price": 699.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532599+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "social_engineering Hi, I'm reaching out on behalf of my elderly mother who purchased an UltraPhone"
+          },
+          "output": {
+            "result": "# ShopWave Support Knowledge Base\n\n---\n\n## 1. Return Policy\n\n### Standard Return Window\n- Most products have a **30-day return window** from the date of delivery.\n- Items must be unused, in original condition, and in original packaging.\n- Proof of purchase (order ID) is required for all returns.\n\n### Category-Specific Return Windows\n- **Electronics accessories** (laptop stands, cables, mounts): 60-day return window.\n- **High-value electronics** (smart watches, tablets, laptops): 15-day return wi...",
+            "source": "shopwave_knowledge_base",
+            "note": "General policy overview \u2014 refine query for specific sections"
+          },
+          "timestamp": "2026-04-19T14:43:23.532622+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T011",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue ty",
+            "priority": "high"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T011",
+            "ticket_id": "T011",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'social_engineering' clearly applies. Customer sentiment: desperate (churn risk: medium). Confidence score: 0.79.",
+            "priority": "high",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.223770+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.223782+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T011",
+            "message": "Hello Bob,\n\nThank you for reaching out. Your case regarding order O011 has been escalated to our spe"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T011",
+            "timestamp": "2026-04-19T14:43:24.238247+00:00",
+            "message_preview": "Hello Bob,\n\nThank you for reaching out. Your case regarding order O011 has been escalated to our specialist team for review (social engineering).\n\nWe "
+          },
+          "timestamp": "2026-04-19T14:43:24.238257+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.79,
+      "confidence_factors": {
+        "data_completeness": 0.7,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'social_engineering' clearly applies. Customer sentiment: desperate (churn risk: medium). Confidence score: 0.79.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T011",
+          "proposed_action": "ESCALATE",
+          "amount_or_category": "social_engineering",
+          "reasoning_summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'social_engineering' clearly applies. Customer sentiment: desperate (churn risk: medium). Confidence score: 0.79.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601486+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "ESCALATE",
+      "escalation_category": "social_engineering",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T011",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T012",
+      "customer_id": "C006",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "bob.anderson@example.com"
+          },
+          "output": {
+            "customer_id": "C006",
+            "name": "Bob",
+            "email": "bob.anderson@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.539045+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O012"
+          },
+          "output": {
+            "order_id": "O012",
+            "customer_id": "C006",
+            "product_id": "P008",
+            "purchase_date": "2025-09-01",
+            "amount": 79.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P008",
+                "quantity": 1,
+                "unit_price": 79.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.539055+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P008"
+          },
+          "output": {
+            "product_id": "P008",
+            "name": "Bluetooth Speaker",
+            "category": "electronics",
+            "return_window_days": 60,
+            "warranty_months": 0,
+            "price": 79.99
+          },
+          "timestamp": "2026-04-19T14:43:23.539065+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request I bought a Bluetooth Speaker in September 2025 (order O012) and it stopped worki"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.539130+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T012",
+            "message": "Hello Bob,\n\nThank you for reaching out regarding order O012.\n\nUnfortunately, we are unable to proces"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T012",
+            "timestamp": "2026-04-19T14:43:24.216386+00:00",
+            "message_preview": "Hello Bob,\n\nThank you for reaching out regarding order O012.\n\nUnfortunately, we are unable to process your request at this time: Outside 60-day return"
+          },
+          "timestamp": "2026-04-19T14:43:24.216420+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9400000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.9
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Denial reason is clearly established. Confidence score: 0.94.",
+      "replan_attempts": [],
+      "checkpoint_events": [],
+      "resolution": "DENY",
+      "escalation_category": null,
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": null,
+      "denial_reason": "Outside 60-day return window (230 days since purchase) and outside 0-month warranty. Not eligible for refund.",
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T013",
+      "customer_id": "C007",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "dave.robinson@example.com"
+          },
+          "output": {
+            "customer_id": "C007",
+            "name": "Dave",
+            "email": "dave.robinson@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.524882+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O013"
+          },
+          "output": {
+            "order_id": "O013",
+            "customer_id": "C007",
+            "product_id": "P004",
+            "purchase_date": "2026-04-10",
+            "amount": 149.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P004",
+                "quantity": 1,
+                "unit_price": 149.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.524892+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P004"
+          },
+          "output": {
+            "product_id": "P004",
+            "name": "Wireless Headphones",
+            "category": "electronics",
+            "return_window_days": 60,
+            "warranty_months": 6,
+            "price": 149.99
+          },
+          "timestamp": "2026-04-19T14:43:23.524902+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request Hello, I purchased Wireless Headphones about a week ago (order O013) and I'm not"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.524969+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O013"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 60-day return window (9 days since purchase).",
+            "return_window_days": 60,
+            "days_since_purchase": 9
+          },
+          "timestamp": "2026-04-19T14:43:23.601683+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O013",
+            "amount": 149.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O013",
+            "order_id": "O013",
+            "amount": 149.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:23.601689+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:23.601697+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T013",
+            "message": "Hello Dave,\n\nGreat news! Your refund of $149.99 for order O013 has been approved (Refund ID: REF-202"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T013",
+            "timestamp": "2026-04-19T14:43:24.223987+00:00",
+            "message_preview": "Hello Dave,\n\nGreat news! Your refund of $149.99 for order O013 has been approved (Refund ID: REF-2026-04-19-O013).\n\nYou should see the funds in your a"
+          },
+          "timestamp": "2026-04-19T14:43:24.223997+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9550000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Confidence score: 0.96.",
+      "replan_attempts": [],
+      "checkpoint_events": [],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O013",
+      "refund_amount": 149.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T014",
+      "customer_id": "C007",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "dave.robinson@example.com"
+          },
+          "output": {
+            "customer_id": "C007",
+            "name": "Dave",
+            "email": "dave.robinson@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532275+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O014"
+          },
+          "output": {
+            "order_id": "O014",
+            "customer_id": "C007",
+            "product_id": "P006",
+            "purchase_date": "2025-11-15",
+            "amount": 549.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P006",
+                "quantity": 1,
+                "unit_price": 549.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532289+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P006"
+          },
+          "output": {
+            "product_id": "P006",
+            "name": "Tablet Air",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 24,
+            "price": 549.99
+          },
+          "timestamp": "2026-04-19T14:43:23.532312+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "warranty_claim My Tablet Air (order O014, purchased November 2025) has developed a fault where"
+          },
+          "output": {
+            "result": "## 3. Warranty Policy\n\n### Coverage\n- Warranty covers **manufacturing defects only**.\n- Does not cover: physical damage caused by user, water damage, unauthorised modifications.\n\n### Warranty Periods by Category\n- Electronics (headphones, speakers, smart watches): 12 months from delivery date.\n- Home appliances (coffee makers, kitchen devices): 24 months from delivery date.\n- Electronics accessories: 6 months from delivery date.\n- Footwear and sports products: No warranty (covered only by return policy).\n\n### Warranty Claim Process\n- Customer must provide order ID and description of defect.\n- Agent should verify warranty period using order delivery date and product warranty duration.\n- Warranty claims are escalated to the warranty team \u2014 agents do not resolve warranty claims directly.\n- Resolution options: repair, replacement, or refund at ShopWave's discretion.\n\n---\n\n## 4. Order Cancellation Policy\n\n- Orders in **processing** status can be cancelled free of charge at any time before shipment.\n- Orders in **shipped** status cannot be cancelled \u2014 customer must wait for delivery and initiate a return.\n- Orders in **delivered** status cannot be cancelled.\n- Cancellations are confirmed via email within 1 hour.\n\n---\n\n## 5. Exchange Policy\n",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "warranty"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532400+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T014",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. ",
+            "priority": "medium"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T014",
+            "ticket_id": "T014",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'warranty_claim' clearly applies. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.94.",
+            "priority": "medium",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:23.601509+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:23.601529+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T014",
+            "message": "Hello Dave,\n\nThank you for reaching out. Your case regarding order O014 has been escalated to our sp"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T014",
+            "timestamp": "2026-04-19T14:43:24.216439+00:00",
+            "message_preview": "Hello Dave,\n\nThank you for reaching out. Your case regarding order O014 has been escalated to our specialist team for review (warranty claim).\n\nWe wil"
+          },
+          "timestamp": "2026-04-19T14:43:24.216452+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9400000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'warranty_claim' clearly applies. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.94.",
+      "replan_attempts": [],
+      "checkpoint_events": [],
+      "resolution": "ESCALATE",
+      "escalation_category": "warranty_claim",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T014",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T015",
+      "customer_id": "C008",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "frank.lewis@example.com"
+          },
+          "output": {
+            "customer_id": "C008",
+            "name": "Frank",
+            "email": "frank.lewis@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532427+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O015"
+          },
+          "output": {
+            "order_id": "O015",
+            "customer_id": "C008",
+            "product_id": "P005",
+            "purchase_date": "2026-04-14",
+            "amount": 499.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P005",
+                "quantity": 1,
+                "unit_price": 499.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532439+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P005"
+          },
+          "output": {
+            "product_id": "P005",
+            "name": "Gaming Console",
+            "category": "electronics",
+            "return_window_days": 30,
+            "warranty_months": 12,
+            "price": 499.99
+          },
+          "timestamp": "2026-04-19T14:43:23.532449+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request I just bought a Gaming Console 3 days ago (order O015) and I'm very disappointed"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532522+00:00"
+        },
+        {
+          "tool_name": "check_refund_eligibility",
+          "input_args": {
+            "order_id": "O015"
+          },
+          "output": {
+            "eligible": true,
+            "reason": "Within 30-day return window (5 days since purchase).",
+            "return_window_days": 30,
+            "days_since_purchase": 5
+          },
+          "timestamp": "2026-04-19T14:43:24.223816+00:00"
+        },
+        {
+          "tool_name": "issue_refund",
+          "input_args": {
+            "order_id": "O015",
+            "amount": 499.99
+          },
+          "output": {
+            "refund_id": "REF-2026-04-19-O015",
+            "order_id": "O015",
+            "amount": 499.99,
+            "status": "issued",
+            "timestamp": "2026-04-19T14:43:24.223823+00:00",
+            "note": "Refund processed. Customer should see funds in 5-7 business days."
+          },
+          "timestamp": "2026-04-19T14:43:24.223833+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T015",
+            "message": "Hello Frank,\n\nGreat news! Your refund of $499.99 for order O015 has been approved (Refund ID: REF-20"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T015",
+            "timestamp": "2026-04-19T14:43:24.246525+00:00",
+            "message_preview": "Hello Frank,\n\nGreat news! Your refund of $499.99 for order O015 has been approved (Refund ID: REF-2026-04-19-O015).\n\nYou should see the funds in your "
+          },
+          "timestamp": "2026-04-19T14:43:24.246552+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": true,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9850000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.95
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.99.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T015",
+          "proposed_action": "APPROVE",
+          "amount_or_category": 499.99,
+          "reasoning_summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Refund approval is clearly within policy. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.99.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601601+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "APPROVE",
+      "escalation_category": null,
+      "refund_id": "REF-2026-04-19-O015",
+      "refund_amount": 499.99,
+      "case_id": null,
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T016",
+      "customer_id": "C008",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "frank.lewis@example.com"
+          },
+          "output": {
+            "customer_id": "C008",
+            "name": "Frank",
+            "email": "frank.lewis@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532856+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O016"
+          },
+          "output": {
+            "order_id": "O016",
+            "customer_id": "C008",
+            "product_id": "P007",
+            "purchase_date": "2025-08-01",
+            "amount": 89.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P007",
+                "quantity": 1,
+                "unit_price": 89.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532865+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "threat Your Fitness Tracker (order O016) is absolute garbage and your company is a disg"
+          },
+          "output": {
+            "result": "# ShopWave Support Knowledge Base\n\n---\n\n## 1. Return Policy\n\n### Standard Return Window\n- Most products have a **30-day return window** from the date of delivery.\n- Items must be unused, in original condition, and in original packaging.\n- Proof of purchase (order ID) is required for all returns.\n\n### Category-Specific Return Windows\n- **Electronics accessories** (laptop stands, cables, mounts): 60-day return window.\n- **High-value electronics** (smart watches, tablets, laptops): 15-day return wi...",
+            "source": "shopwave_knowledge_base",
+            "note": "General policy overview \u2014 refine query for specific sections"
+          },
+          "timestamp": "2026-04-19T14:43:23.532886+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T016",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue ty",
+            "priority": "urgent"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T016",
+            "ticket_id": "T016",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Confidence score: 0.79.",
+            "priority": "urgent",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.223965+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.223974+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T016",
+            "message": "Hello Frank,\n\nThank you for reaching out. Your case regarding order O016 has been escalated to our s"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T016",
+            "timestamp": "2026-04-19T14:43:24.238323+00:00",
+            "message_preview": "Hello Frank,\n\nThank you for reaching out. Your case regarding order O016 has been escalated to our specialist team for review (threat detected).\n\nWe w"
+          },
+          "timestamp": "2026-04-19T14:43:24.238332+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.79,
+      "confidence_factors": {
+        "data_completeness": 0.7,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Confidence score: 0.79.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T016",
+          "proposed_action": "ESCALATE",
+          "amount_or_category": "threat_detected",
+          "reasoning_summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Confidence score: 0.79.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601727+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "ESCALATE",
+      "escalation_category": "threat_detected",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T016",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T017",
+      "customer_id": "C009",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "henry.walker@example.com"
+          },
+          "output": {
+            "customer_id": "C009",
+            "name": "Henry",
+            "email": "henry.walker@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.532906+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O017"
+          },
+          "output": {
+            "order_id": "O017",
+            "customer_id": "C009",
+            "product_id": "P001",
+            "purchase_date": "2026-03-10",
+            "amount": 899.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P001",
+                "quantity": 1,
+                "unit_price": 899.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.532916+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "social_engineering Hello, I'm contacting you as a representative of Henry Walker's account (order O"
+          },
+          "output": {
+            "result": "# ShopWave Support Knowledge Base\n\n---\n\n## 1. Return Policy\n\n### Standard Return Window\n- Most products have a **30-day return window** from the date of delivery.\n- Items must be unused, in original condition, and in original packaging.\n- Proof of purchase (order ID) is required for all returns.\n\n### Category-Specific Return Windows\n- **Electronics accessories** (laptop stands, cables, mounts): 60-day return window.\n- **High-value electronics** (smart watches, tablets, laptops): 15-day return wi...",
+            "source": "shopwave_knowledge_base",
+            "note": "General policy overview \u2014 refine query for specific sections"
+          },
+          "timestamp": "2026-04-19T14:43:23.532936+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T017",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue ty",
+            "priority": "high"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T017",
+            "ticket_id": "T017",
+            "summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'social_engineering' clearly applies. Customer sentiment: desperate (churn risk: medium). Confidence score: 0.79.",
+            "priority": "high",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.226359+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.226381+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T017",
+            "message": "Hello Henry,\n\nThank you for reaching out. Your case regarding order O017 has been escalated to our s"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T017",
+            "timestamp": "2026-04-19T14:43:24.239935+00:00",
+            "message_preview": "Hello Henry,\n\nThank you for reaching out. Your case regarding order O017 has been escalated to our specialist team for review (social engineering).\n\nW"
+          },
+          "timestamp": "2026-04-19T14:43:24.239958+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.79,
+      "confidence_factors": {
+        "data_completeness": 0.7,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'social_engineering' clearly applies. Customer sentiment: desperate (churn risk: medium). Confidence score: 0.79.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T017",
+          "proposed_action": "ESCALATE",
+          "amount_or_category": "social_engineering",
+          "reasoning_summary": "Order and customer data present; product data missing. Customer description is detailed and issue type is clear. Escalation category 'social_engineering' clearly applies. Customer sentiment: desperate (churn risk: medium). Confidence score: 0.79.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601613+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "ESCALATE",
+      "escalation_category": "social_engineering",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T017",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T018",
+      "customer_id": "C009",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "henry.walker@example.com"
+          },
+          "output": {
+            "customer_id": "C009",
+            "name": "Henry",
+            "email": "henry.walker@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.533078+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O018"
+          },
+          "output": {
+            "order_id": "O018",
+            "customer_id": "C009",
+            "product_id": "P008",
+            "purchase_date": "2026-04-09",
+            "amount": 79.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P008",
+                "quantity": 1,
+                "unit_price": 79.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.533088+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "ambiguous Hi, I have an issue with something I bought recently. It's not working right and"
+          },
+          "output": {
+            "result": "# ShopWave Support Knowledge Base\n\n---\n\n## 1. Return Policy\n\n### Standard Return Window\n- Most products have a **30-day return window** from the date of delivery.\n- Items must be unused, in original condition, and in original packaging.\n- Proof of purchase (order ID) is required for all returns.\n\n### Category-Specific Return Windows\n- **Electronics accessories** (laptop stands, cables, mounts): 60-day return window.\n- **High-value electronics** (smart watches, tablets, laptops): 15-day return wi...",
+            "source": "shopwave_knowledge_base",
+            "note": "General policy overview \u2014 refine query for specific sections"
+          },
+          "timestamp": "2026-04-19T14:43:24.212710+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T018",
+            "summary": "Order and customer data present; product data missing. Customer description is very short or ambiguo",
+            "priority": "low"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T018",
+            "ticket_id": "T018",
+            "summary": "Order and customer data present; product data missing. Customer description is very short or ambiguous. Escalation category 'threat_detected' clearly applies. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.67.",
+            "priority": "low",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.262662+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.262676+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T018",
+            "message": "Hello Henry,\n\nThank you for reaching out. Your case regarding order O018 has been escalated to our s"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T018",
+            "timestamp": "2026-04-19T14:43:24.265010+00:00",
+            "message_preview": "Hello Henry,\n\nThank you for reaching out. Your case regarding order O018 has been escalated to our specialist team for review (ambiguous request).\n\nWe"
+          },
+          "timestamp": "2026-04-19T14:43:24.265023+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": false
+      },
+      "confidence_score": 0.6699999999999999,
+      "confidence_factors": {
+        "data_completeness": 0.7,
+        "reason_clarity": 0.4,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "Order and customer data present; product data missing. Customer description is very short or ambiguous. Escalation category 'threat_detected' clearly applies. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.67.",
+      "replan_attempts": [],
+      "checkpoint_events": [],
+      "resolution": "ESCALATE",
+      "escalation_category": "ambiguous_request",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T018",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T019",
+      "customer_id": "C010",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "jane.harris@example.com"
+          },
+          "output": {
+            "customer_id": "C010",
+            "name": "Jane",
+            "email": "jane.harris@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.538876+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": "O019"
+          },
+          "output": {
+            "order_id": "O019",
+            "customer_id": "C010",
+            "product_id": "P002",
+            "purchase_date": "2026-04-15",
+            "amount": 699.99,
+            "status": "delivered",
+            "items": [
+              {
+                "product_id": "P002",
+                "quantity": 1,
+                "unit_price": 699.99
+              }
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.538893+00:00"
+        },
+        {
+          "tool_name": "get_product",
+          "input_args": {
+            "product_id": "P002"
+          },
+          "output": {
+            "product_id": "P002",
+            "name": "UltraPhone",
+            "category": "electronics",
+            "return_window_days": 15,
+            "warranty_months": 12,
+            "price": 699.99
+          },
+          "timestamp": "2026-04-19T14:43:23.538906+00:00"
+        },
+        {
+          "tool_name": "search_knowledge_base",
+          "input_args": {
+            "query": "refund_request I purchased an UltraPhone just 2 days ago (order O019) and I've already encounte"
+          },
+          "output": {
+            "result": "- If an item arrives damaged or defective, the customer is eligible for a **full refund or replacement regardless of return window**.\n- Photo evidence is required to process the claim.\n- The customer is not required to return the damaged item in most cases \u2014 agent should use judgment.\n\n### Wrong Item Delivered\n- If the wrong item is delivered, ShopWave will arrange return pickup and ship the correct item at no cost.\n- If the correct item is out of stock, a full refund is issued.\n- This does not count against the standard return window.\n\n---\n\n## 2. Refund Policy\n\n### Refund Eligibility\n- Refunds are only issued after eligibility is confirmed via the `check_refund_eligibility` tool.\n- Refunds are processed to the original payment method.\n- Standard processing time: **5\u20137 business days** after approval.\n- Refunds cannot be reversed once issued.\n\n### Partial Refunds\n- Partial refunds may be issued for items returned in non-original condition.\n- A restocking fee of 10% may apply to high-value electronics returned outside of 7 days.\n\n### Refund Exceptions by Customer Tier\n- **Standard**: Standard return and refund policy applies. No exceptions.\n- **Premium**: Agents may use judgment to approve borderline cases (e.g. 1\u20133 days outside return window). Requires supervisor note.\n- **VIP**: Extended leniency. Management pre-approvals may be on file. Always check customer notes before declining.\n\n---\n\n## 3. Warranty Policy",
+            "source": "shopwave_knowledge_base",
+            "matched_topics": [
+              "refund"
+            ]
+          },
+          "timestamp": "2026-04-19T14:43:23.538987+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T019",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. ",
+            "priority": "urgent"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T019",
+            "ticket_id": "T019",
+            "summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.94.",
+            "priority": "urgent",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:24.223713+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:24.223750+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T019",
+            "message": "Hello Jane,\n\nThank you for reaching out. Your case regarding order O019 has been escalated to our sp"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T019",
+            "timestamp": "2026-04-19T14:43:24.238218+00:00",
+            "message_preview": "Hello Jane,\n\nThank you for reaching out. Your case regarding order O019 has been escalated to our specialist team for review (threat detected).\n\nWe wi"
+          },
+          "timestamp": "2026-04-19T14:43:24.238234+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": true,
+        "q2_in_policy": false,
+        "q3_confident": true
+      },
+      "confidence_score": 0.9400000000000001,
+      "confidence_factors": {
+        "data_completeness": 1.0,
+        "reason_clarity": 0.9,
+        "policy_consistency": 0.8
+      },
+      "self_reflection_note": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.94.",
+      "replan_attempts": [],
+      "checkpoint_events": [
+        {
+          "ticket_id": "T019",
+          "proposed_action": "ESCALATE",
+          "amount_or_category": "threat_detected",
+          "reasoning_summary": "All required data retrieved successfully. Customer description is detailed and issue type is clear. Escalation category 'threat_detected' clearly applies. Customer sentiment: calm (churn risk: low). Confidence increased by 0.03 due to sentiment. Confidence score: 0.94.",
+          "auto_approved": true,
+          "timestamp": "2026-04-19T14:43:23.601436+00:00",
+          "debate_transcript": []
+        }
+      ],
+      "resolution": "ESCALATE",
+      "escalation_category": "threat_detected",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T019",
+      "denial_reason": null,
+      "processing_error": null
+    },
+    {
+      "ticket_id": "T020",
+      "customer_id": "C010",
+      "tool_calls": [
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "email": "jane.harris@example.com"
+          },
+          "output": {
+            "customer_id": "C010",
+            "name": "Jane",
+            "email": "jane.harris@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.539015+00:00"
+        },
+        {
+          "tool_name": "get_order",
+          "input_args": {
+            "order_id": null
+          },
+          "output": {
+            "error": "not_found",
+            "message": "No order ID provided in ticket"
+          },
+          "timestamp": "2026-04-19T14:43:23.539024+00:00"
+        },
+        {
+          "tool_name": "get_customer",
+          "input_args": {
+            "identifier": "C010"
+          },
+          "output": {
+            "customer_id": "C010",
+            "name": "Jane",
+            "email": "jane.harris@example.com",
+            "tier": "standard",
+            "vip_exceptions": {}
+          },
+          "timestamp": "2026-04-19T14:43:23.555723+00:00"
+        },
+        {
+          "tool_name": "escalate",
+          "input_args": {
+            "ticket_id": "T020",
+            "summary": "Escalated: missing_data",
+            "priority": "low"
+          },
+          "output": {
+            "case_id": "ESC-2026-04-19-T020",
+            "ticket_id": "T020",
+            "summary": "Escalated: missing_data",
+            "priority": "low",
+            "status": "escalated",
+            "timestamp": "2026-04-19T14:43:23.569139+00:00",
+            "assigned_to": "specialist_team"
+          },
+          "timestamp": "2026-04-19T14:43:23.569181+00:00"
+        },
+        {
+          "tool_name": "send_reply",
+          "input_args": {
+            "ticket_id": "T020",
+            "message": "Hello Jane,\n\nThank you for reaching out. Your case regarding order None has been escalated to our sp"
+          },
+          "output": {
+            "delivered": true,
+            "ticket_id": "T020",
+            "timestamp": "2026-04-19T14:43:23.579526+00:00",
+            "message_preview": "Hello Jane,\n\nThank you for reaching out. Your case regarding order None has been escalated to our specialist team for review (missing data).\n\nWe will "
+          },
+          "timestamp": "2026-04-19T14:43:23.579554+00:00"
+        }
+      ],
+      "reasoning": {
+        "q1_identified": null,
+        "q2_in_policy": null,
+        "q3_confident": null
+      },
+      "confidence_score": null,
+      "confidence_factors": null,
+      "self_reflection_note": null,
+      "replan_attempts": [
+        {
+          "trigger": "get_order not_found",
+          "alternative_path": "get_customer(C010)",
+          "outcome": "succeeded \u2014 customer found but order still unavailable"
+        }
+      ],
+      "checkpoint_events": [],
+      "resolution": "ESCALATE",
+      "escalation_category": "missing_data",
+      "refund_id": null,
+      "refund_amount": null,
+      "case_id": "ESC-2026-04-19-T020",
+      "denial_reason": null,
+      "processing_error": null
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "generation": 22,
+  "last_updated": "2026-04-19T14:43:43.546095+00:00",
+  "confidence_threshold": 0.7,
+  "sentiment_rules": {
+    "angry_vip_hitl_amount_threshold": 150.0,
+    "calm_confidence_boost": 0.05,
+    "desperate_high_churn_auto_escalate": true,
+    "frustrated_repeat_confidence_penalty": 0.05
+  },
+  "additional_threat_keywords": [],
+  "additional_social_engineering_keywords": [],
+  "run_history": [
+    {
+      "total_tickets": 5,
+      "resolutions": {
+        "APPROVE": 5
+      },
+      "avg_confidence": 0.85,
+      "borderline_count": 0,
+      "sentiment_distribution": {
+        "unknown": 5
+      },
+      "churn_risk_distribution": {
+        "unknown": 5
+      },
+      "timestamp": "2026-04-19T13:37:02.109302+00:00"
+    },
+    {
+      "total_tickets": 3,
+      "resolutions": {
+        "APPROVE": 3
+      },
+      "avg_confidence": 0.85,
+      "borderline_count": 0,
+      "sentiment_distribution": {
+        "unknown": 3
+      },
+      "churn_risk_distribution": {
+        "unknown": 3
+      },
+      "timestamp": "2026-04-19T13:37:02.120788+00:00"
+    },
+    {
+      "total_tickets": 3,
+      "resolutions": {
+        "APPROVE": 1,
+        "DENY": 1,
+        "ESCALATE": 1
+      },
+      "avg_confidence": 0.85,
+      "borderline_count": 0,
+      "sentiment_distribution": {
+        "unknown": 3
+      },
+      "churn_risk_distribution": {
+        "unknown": 3
+      },
+      "timestamp": "2026-04-19T13:37:02.135809+00:00"
+    },
+    {
+      "total_tickets": 20,
+      "resolutions": {
+        "APPROVE": 9,
+        "ESCALATE": 10,
+        "DENY": 1
+      },
+      "avg_confidence": 0.904,
+      "borderline_count": 4,
+      "sentiment_distribution": {
+        "unknown": 20
+      },
+      "churn_risk_distribution": {
+        "unknown": 20
+      },
+      "timestamp": "2026-04-19T14:15:06.769174+00:00"
+    },
+    {
+      "total_tickets": 20,
+      "resolutions": {
+        "APPROVE": 7,
+        "DENY": 3,
+        "ESCALATE": 10
+      },
+      "avg_confidence": 0.903,
+      "borderline_count": 4,
+      "sentiment_distribution": {
+        "unknown": 20
+      },
+      "churn_risk_distribution": {
+        "unknown": 20
+      },
+      "timestamp": "2026-04-19T14:15:35.821114+00:00"
+    },
+    {
+      "total_tickets": 20,
+      "resolutions": {
+        "APPROVE": 7,
+        "DENY": 3,
+        "ESCALATE": 10
+      },
+      "avg_confidence": 0.903,
+      "borderline_count": 4,
+      "sentiment_distribution": {
+        "unknown": 20
+      },
+      "churn_risk_distribution": {
+        "unknown": 20
+      },
+      "timestamp": "2026-04-19T14:16:38.037383+00:00"
+    },
+    {
+      "total_tickets": 20,
+      "resolutions": {
+        "APPROVE": 9,
+        "ESCALATE": 10,
+        "DENY": 1
+      },
+      "avg_confidence": 0.904,
+      "borderline_count": 4,
+      "sentiment_distribution": {
+        "unknown": 20
+      },
+      "churn_risk_distribution": {
+        "unknown": 20
+      },
+      "timestamp": "2026-04-19T14:16:38.312800+00:00"
+    },
+    {
+      "total_tickets": 20,
+      "resolutions": {
+        "APPROVE": 9,
+        "ESCALATE": 10,
+        "DENY": 1
+      },
+      "avg_confidence": 0.904,
+      "borderline_count": 4,
+      "sentiment_distribution": {
+        "unknown": 20
+      },
+      "churn_risk_distribution": {
+        "unknown": 20
+      },
+      "timestamp": "2026-04-19T14:19:02.234357+00:00"
+    },
+    {
+      "total_tickets": 20,
+      "resolutions": {
+        "APPROVE": 8,
+        "ESCALATE": 10,
+        "DENY": 2
+      },
+      "avg_confidence": 0.904,
+      "borderline_count": 4,
+      "sentiment_distribution": {
+        "unknown": 20
+      },
+      "churn_risk_distribution": {
+        "unknown": 20
+      },
+      "timestamp": "2026-04-19T14:19:19.047152+00:00"
+    },
+    {
+      "total_tickets": 20,
+      "resolutions": {
+        "APPROVE": 9,
+        "ESCALATE": 10,
+        "DENY": 1
+      },
+      "avg_confidence": 0.904,
+      "borderline_count": 4,
+      "sentiment_distribution": {
+        "unknown": 20
+      },
+      "churn_risk_distribution": {
+        "unknown": 20
+      },
+      "timestamp": "2026-04-19T14:43:43.546077+00:00"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+# ShopWave Agent API package

@@ -1,0 +1,52 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Test / hypothesis cache
+.pytest_cache/
+.hypothesis/
+htmlcov/
+.coverage
+coverage.xml
+
+# Output files (generated at runtime, not baked into image)
+audit_log.json
+trace_log.jsonl
+tmp_trace.jsonl
+output/
+
+# Secrets — never bake into image
+.env
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Web frontend (not needed in agent image)
+web/
+
+# API server (separate service)
+api/
+
+# Docs
+*.md
+!README.md
+
+# Git
+.git/
+.gitignore

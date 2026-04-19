@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  # ── Main agent run ──────────────────────────────────────────────────────────
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: shopwave-agent:latest
+    container_name: shopwave-agent
+    env_file:
+      - .env                        # ANTHROPIC_API_KEY, GROQ_API_KEY
+    environment:
+      TOOL_FAILURE_RATE: "0.05"     # 5% realistic tool failures
+      LOG_LEVEL: "INFO"
+    volumes:
+      - ./output:/app/output        # audit_log.json + trace_log.jsonl land here
+    command: ["python", "main.py"]
+
+  # ── Test runner ─────────────────────────────────────────────────────────────
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: shopwave-agent-test:latest
+    container_name: shopwave-agent-test
+    environment:
+      TOOL_FAILURE_RATE: "0"        # deterministic in tests
+      LOG_LEVEL: "WARNING"
+    volumes:
+      - ./tests:/app/tests:ro       # mount tests read-only
+    command: ["python", "-m", "pytest", "tests/", "-q", "--tb=short"]
+    profiles:
+      - test                        # only runs with: docker compose --profile test up
